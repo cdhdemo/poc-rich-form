@@ -14,7 +14,6 @@ export abstract class BaseFormEvent<
 
   protected readonly stepId: UrbanProjectCustomCreationStep =
     "URBAN_PROJECT_SPACES_CATEGORIES_INTRODUCTION";
-  protected readonly id: string = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
   protected readonly timestamp: number = Date.now();
   protected readonly source: "user" | "system" = "user";
   protected readonly payload?: TPayload;

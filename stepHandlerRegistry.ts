@@ -47,7 +47,8 @@ const informationalStepHandlers: Record<InformationalStep, BaseStepHandler> = {
   URBAN_PROJECT_SPACES_CATEGORIES_INTRODUCTION: new SpacesCategoriesIntroductionHandler(),
   URBAN_PROJECT_SPACES_DEVELOPMENT_PLAN_INTRODUCTION: new SpaceDevelopmentPlanIntroductionHandler(),
   URBAN_PROJECT_GREEN_SPACES_INTRODUCTION: new GreenSpacesIntroductionHandler(),
-  URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_INTRODUCTION: new ResidentialAndActivitySpacesIntroductionHandler(),
+  URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_INTRODUCTION:
+    new ResidentialAndActivitySpacesIntroductionHandler(),
   URBAN_PROJECT_PUBLIC_SPACES_INTRODUCTION: new PublicSpacesIntroductionHandler(),
   URBAN_PROJECT_SPACES_SOILS_SUMMARY: new SoilsSummaryHandler(),
   URBAN_PROJECT_SOILS_CARBON_SUMMARY: new SoilsCarbonSummaryHandler(),
@@ -62,27 +63,37 @@ const informationalStepHandlers: Record<InformationalStep, BaseStepHandler> = {
   URBAN_PROJECT_FINAL_SUMMARY: new FinalSummaryHandler(),
 } as const;
 
-const answerStepHandlers: Record<keyof StepAnswers, AnswerStepHandler<StepAnswers[keyof StepAnswers]>> = {
+const answerStepHandlers: Record<
+  keyof StepAnswers,
+  AnswerStepHandler<StepAnswers[keyof StepAnswers]>
+> = {
   URBAN_PROJECT_SPACES_CATEGORIES_SELECTION: new UrbanProjectSpacesCategoriesSelectionHandler(),
-  URBAN_PROJECT_SPACES_CATEGORIES_SURFACE_AREA: new UrbanProjectSpacesCategoriesSurfaceAreaHandler(),
-  URBAN_PROJECT_GREEN_SPACES_SURFACE_AREA_DISTRIBUTION: new GreenSpacesSurfaceAreaDistributionHandler(),
-  URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION: new ResidentialAndActivitySpacesDistributionHandler(),
+  URBAN_PROJECT_SPACES_CATEGORIES_SURFACE_AREA:
+    new UrbanProjectSpacesCategoriesSurfaceAreaHandler(),
+  URBAN_PROJECT_GREEN_SPACES_SURFACE_AREA_DISTRIBUTION:
+    new GreenSpacesSurfaceAreaDistributionHandler(),
+  URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION:
+    new ResidentialAndActivitySpacesDistributionHandler(),
   URBAN_PROJECT_PUBLIC_SPACES_DISTRIBUTION: new PublicSpacesDistributionHandler(),
   URBAN_PROJECT_SOILS_DECONTAMINATION_SELECTION: new SoilsDecontaminationSelectionHandler(),
   URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA: new SoilsDecontaminationSurfaceAreaHandler(),
   URBAN_PROJECT_BUILDINGS_FLOOR_SURFACE_AREA: new BuildingsFloorSurfaceAreaHandler(),
-  URBAN_PROJECT_BUILDINGS_USE_SURFACE_AREA_DISTRIBUTION: new BuildingsUseSurfaceAreaDistributionHandler(),
+  URBAN_PROJECT_BUILDINGS_USE_SURFACE_AREA_DISTRIBUTION:
+    new BuildingsUseSurfaceAreaDistributionHandler(),
   URBAN_PROJECT_STAKEHOLDERS_PROJECT_DEVELOPER: new StakeholdersProjectDeveloperHandler(),
-  URBAN_PROJECT_STAKEHOLDERS_REINSTATEMENT_CONTRACT_OWNER: new StakeholdersReinstatementContractOwnerHandler(),
+  URBAN_PROJECT_STAKEHOLDERS_REINSTATEMENT_CONTRACT_OWNER:
+    new StakeholdersReinstatementContractOwnerHandler(),
   URBAN_PROJECT_SITE_RESALE_SELECTION: new SiteResaleSelectionHandler(),
   URBAN_PROJECT_BUILDINGS_RESALE_SELECTION: new BuildingsResaleSelectionHandler(),
   URBAN_PROJECT_EXPENSES_SITE_PURCHASE_AMOUNTS: new ExpensesSitePurchaseAmountsHandler(),
   URBAN_PROJECT_EXPENSES_REINSTATEMENT: new UrbanProjectReinstatementExpensesHandler(),
   URBAN_PROJECT_EXPENSES_INSTALLATION: new UrbanProjectInstallationExpensesHandler(),
-  URBAN_PROJECT_EXPENSES_PROJECTED_BUILDINGS_OPERATING_EXPENSES: new ExpensesProjectedBuildingsOperatingExpensesHandler(),
+  URBAN_PROJECT_EXPENSES_PROJECTED_BUILDINGS_OPERATING_EXPENSES:
+    new ExpensesProjectedBuildingsOperatingExpensesHandler(),
   URBAN_PROJECT_REVENUE_EXPECTED_SITE_RESALE: new RevenueExpectedSiteResaleHandler(),
   URBAN_PROJECT_REVENUE_BUILDINGS_RESALE: new RevenueBuildingsResaleHandler(),
-  URBAN_PROJECT_REVENUE_BUILDINGS_OPERATIONS_YEARLY_REVENUES: new RevenueBuildingsOperationsYearlyRevenuesHandler(),
+  URBAN_PROJECT_REVENUE_BUILDINGS_OPERATIONS_YEARLY_REVENUES:
+    new RevenueBuildingsOperationsYearlyRevenuesHandler(),
   URBAN_PROJECT_REVENUE_FINANCIAL_ASSISTANCE: new RevenueFinancialAssistanceHandler(),
   URBAN_PROJECT_SCHEDULE_PROJECTION: new UrbanProjectScheduleProjectionHandler(),
   URBAN_PROJECT_NAMING: new UrbanProjectNamingHandler(),
@@ -90,10 +101,8 @@ const answerStepHandlers: Record<keyof StepAnswers, AnswerStepHandler<StepAnswer
 } as const;
 
 export const stepHandlerRegistry = {
-  getAnswerStepHandler<T extends keyof StepAnswers>(
-    stepId: T,
-  ): AnswerStepHandler<StepAnswers[T]> {
-    return answerStepHandlers[stepId] as AnswerStepHandler<StepAnswers[T]>;
+  getAnswerStepHandler<T extends keyof StepAnswers>(stepId: T): AnswerStepHandler<StepAnswers[T]> {
+    return answerStepHandlers[stepId];
   },
 
   getInformationalStepHandler(stepId: InformationalStep): BaseStepHandler {

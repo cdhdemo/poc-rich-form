@@ -6,8 +6,7 @@ export class RevenueBuildingsOperationsYearlyRevenuesHandler extends BaseAnswerS
   protected override stepId: keyof StepAnswers =
     "URBAN_PROJECT_REVENUE_BUILDINGS_OPERATIONS_YEARLY_REVENUES";
 
-  setDefaultAnswers(): void {
-  }
+  setDefaultAnswers(): void {}
 
   previous(context: StepContext): void {
     const siteResalePlannedAfterDevelopment = BaseAnswerStepHandler.getStepAnswers(

@@ -2,13 +2,13 @@ import { createSelector } from "@reduxjs/toolkit";
 
 import { RootState } from "@/shared/core/store-config/store";
 
-import { getStepLastAnswers } from "../poc-rich-form/urbanProject.selectors";
 import {
   AvailableProjectStakeholder,
   getAvailableLocalAuthoritiesStakeholders,
   getProjectAvailableStakeholders,
   hasStakeholder,
 } from "../stakeholders.selectors";
+import { FormStateHandler } from "./handlers/formState.handler";
 
 export const getUrbanProjectAvailableStakeholders = createSelector(
   [
@@ -18,10 +18,10 @@ export const getUrbanProjectAvailableStakeholders = createSelector(
   (projectAvailableStakeholders, events) => {
     const stakeholders: AvailableProjectStakeholder[] = projectAvailableStakeholders.slice();
 
-    const projectDeveloper = getStepLastAnswers(
+    const projectDeveloper = FormStateHandler.new(events).getStepAnswers(
       "URBAN_PROJECT_STAKEHOLDERS_PROJECT_DEVELOPER",
-      events,
     )?.projectDeveloper;
+
     if (projectDeveloper && !hasStakeholder(projectDeveloper, stakeholders)) {
       stakeholders.push({
         name: projectDeveloper.name,
@@ -30,10 +30,10 @@ export const getUrbanProjectAvailableStakeholders = createSelector(
       });
     }
 
-    const reinstatementContractOwner = getStepLastAnswers(
+    const reinstatementContractOwner = FormStateHandler.new(events).getStepAnswers(
       "URBAN_PROJECT_STAKEHOLDERS_REINSTATEMENT_CONTRACT_OWNER",
-      events,
     )?.reinstatementContractOwner;
+
     if (reinstatementContractOwner && !hasStakeholder(reinstatementContractOwner, stakeholders)) {
       stakeholders.push({
         name: reinstatementContractOwner.name,
@@ -52,13 +52,12 @@ export const getUrbanProjectAvailableLocalAuthoritiesStakeholders = createSelect
     (state: RootState) => state.projectCreation.pocUrbanProject.events,
   ],
   (availableLocalAuthoritiesStakeholders, events) => {
-    const projectDeveloper = getStepLastAnswers(
+    const projectDeveloper = FormStateHandler.new(events).getStepAnswers(
       "URBAN_PROJECT_STAKEHOLDERS_PROJECT_DEVELOPER",
-      events,
     )?.projectDeveloper;
-    const reinstatementContractOwner = getStepLastAnswers(
+
+    const reinstatementContractOwner = FormStateHandler.new(events).getStepAnswers(
       "URBAN_PROJECT_STAKEHOLDERS_REINSTATEMENT_CONTRACT_OWNER",
-      events,
     )?.reinstatementContractOwner;
 
     return availableLocalAuthoritiesStakeholders.filter((addressLocalAuthority) => {

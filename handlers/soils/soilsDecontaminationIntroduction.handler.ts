@@ -6,10 +6,10 @@ export class SoilsDecontaminationIntroductionHandler extends BaseStepHandler {
     "URBAN_PROJECT_SOILS_DECONTAMINATION_INTRODUCTION";
 
   previous(context: StepContext): void {
-    this.navigateTo(context, "URBAN_PROJECT_SOILS_DECONTAMINATION_SELECTION");
+    this.navigateTo(context, "URBAN_PROJECT_SOILS_CARBON_SUMMARY");
   }
 
   next(context: StepContext): void {
-    this.navigateTo(context, "URBAN_PROJECT_SOILS_CARBON_SUMMARY");
+    this.navigateTo(context, "URBAN_PROJECT_SOILS_DECONTAMINATION_SELECTION");
   }
 }

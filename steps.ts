@@ -26,7 +26,7 @@ export const isInformationalStep = (
   return INFORMATIONAL_STEPS_SET.has(stepId as InformationalStep);
 };
 
-const ANSWER_STEPS_SET = new Set<keyof StepAnswers>([
+export const ANSWER_STEPS_SET = new Set<keyof StepAnswers>([
   "URBAN_PROJECT_SPACES_CATEGORIES_SELECTION",
   "URBAN_PROJECT_SPACES_CATEGORIES_SURFACE_AREA",
   "URBAN_PROJECT_GREEN_SPACES_SURFACE_AREA_DISTRIBUTION",

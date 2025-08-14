@@ -6,7 +6,7 @@ export class SoilsCarbonSummaryHandler extends BaseStepHandler {
     "URBAN_PROJECT_SOILS_CARBON_SUMMARY";
 
   previous(context: StepContext): void {
-    this.navigateTo(context, "URBAN_PROJECT_SOILS_CARBON_SUMMARY");
+    this.navigateTo(context, "URBAN_PROJECT_SPACES_SOILS_SUMMARY");
   }
 
   next(context: StepContext): void {
