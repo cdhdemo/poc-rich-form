@@ -1,0 +1,75 @@
+import { createSelector } from "@reduxjs/toolkit";
+
+import { RootState } from "@/shared/core/store-config/store";
+
+import { getStepLastAnswers } from "../poc-rich-form/urbanProject.selectors";
+import {
+  AvailableProjectStakeholder,
+  getAvailableLocalAuthoritiesStakeholders,
+  getProjectAvailableStakeholders,
+  hasStakeholder,
+} from "../stakeholders.selectors";
+
+export const getUrbanProjectAvailableStakeholders = createSelector(
+  [
+    getProjectAvailableStakeholders,
+    (state: RootState) => state.projectCreation.pocUrbanProject.events,
+  ],
+  (projectAvailableStakeholders, events) => {
+    const stakeholders: AvailableProjectStakeholder[] = projectAvailableStakeholders.slice();
+
+    const projectDeveloper = getStepLastAnswers(
+      "URBAN_PROJECT_STAKEHOLDERS_PROJECT_DEVELOPER",
+      events,
+    )?.projectDeveloper;
+    if (projectDeveloper && !hasStakeholder(projectDeveloper, stakeholders)) {
+      stakeholders.push({
+        name: projectDeveloper.name,
+        role: "project_stakeholder",
+        structureType: projectDeveloper.structureType,
+      });
+    }
+
+    const reinstatementContractOwner = getStepLastAnswers(
+      "URBAN_PROJECT_STAKEHOLDERS_REINSTATEMENT_CONTRACT_OWNER",
+      events,
+    )?.reinstatementContractOwner;
+    if (reinstatementContractOwner && !hasStakeholder(reinstatementContractOwner, stakeholders)) {
+      stakeholders.push({
+        name: reinstatementContractOwner.name,
+        role: "project_stakeholder",
+        structureType: reinstatementContractOwner.structureType,
+      });
+    }
+
+    return stakeholders;
+  },
+);
+
+export const getUrbanProjectAvailableLocalAuthoritiesStakeholders = createSelector(
+  [
+    getAvailableLocalAuthoritiesStakeholders,
+    (state: RootState) => state.projectCreation.pocUrbanProject.events,
+  ],
+  (availableLocalAuthoritiesStakeholders, events) => {
+    const projectDeveloper = getStepLastAnswers(
+      "URBAN_PROJECT_STAKEHOLDERS_PROJECT_DEVELOPER",
+      events,
+    )?.projectDeveloper;
+    const reinstatementContractOwner = getStepLastAnswers(
+      "URBAN_PROJECT_STAKEHOLDERS_REINSTATEMENT_CONTRACT_OWNER",
+      events,
+    )?.reinstatementContractOwner;
+
+    return availableLocalAuthoritiesStakeholders.filter((addressLocalAuthority) => {
+      const isProjectDeveloper =
+        addressLocalAuthority.type === projectDeveloper?.structureType &&
+        addressLocalAuthority.name === projectDeveloper.name;
+      const isReinstatementContractOwner =
+        addressLocalAuthority.type === reinstatementContractOwner?.structureType &&
+        addressLocalAuthority.name === reinstatementContractOwner.name;
+
+      return !isProjectDeveloper && !isReinstatementContractOwner;
+    });
+  },
+);

@@ -1,0 +1,18 @@
+import { StepAnswers } from "../../steps.types";
+import { BaseAnswerStepHandler } from "../answerStep.handler";
+import { StepContext } from "../step.handler";
+
+export class GreenSpacesSurfaceAreaDistributionHandler extends BaseAnswerStepHandler {
+  protected override stepId: keyof StepAnswers =
+    "URBAN_PROJECT_GREEN_SPACES_SURFACE_AREA_DISTRIBUTION";
+
+  setDefaultAnswers(): void {}
+
+  previous(context: StepContext): void {
+    this.navigateTo(context, "URBAN_PROJECT_GREEN_SPACES_INTRODUCTION");
+  }
+
+  next(context: StepContext): void {
+    this.navigateTo(context, "URBAN_PROJECT_SPACES_SOILS_SUMMARY");
+  }
+}
