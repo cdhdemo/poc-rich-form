@@ -1,4 +1,5 @@
 import { UrbanProjectCustomCreationStep } from "../../../urban-project/creationSteps";
+import { FormState } from "../../form-state/formState";
 import { BaseStepHandler, StepContext } from "../step.handler";
 
 export class ExpensesIntroductionHandler extends BaseStepHandler {
@@ -6,8 +7,8 @@ export class ExpensesIntroductionHandler extends BaseStepHandler {
     "URBAN_PROJECT_EXPENSES_INTRODUCTION";
 
   previous(context: StepContext): void {
-    const livingAndActivitySpacesDistribution = BaseStepHandler.getStepAnswers(
-      context,
+    const livingAndActivitySpacesDistribution = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION",
     )?.livingAndActivitySpacesDistribution;
 

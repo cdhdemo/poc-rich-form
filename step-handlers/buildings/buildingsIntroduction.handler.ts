@@ -1,4 +1,5 @@
 import { UrbanProjectCustomCreationStep } from "../../../urban-project/creationSteps";
+import { FormState } from "../../form-state/formState";
 import { BaseStepHandler, StepContext } from "../step.handler";
 
 export class BuildingsIntroductionHandler extends BaseStepHandler {
@@ -6,8 +7,8 @@ export class BuildingsIntroductionHandler extends BaseStepHandler {
     "URBAN_PROJECT_BUILDINGS_INTRODUCTION";
 
   previous(context: StepContext): void {
-    const decontaminationPlan = BaseStepHandler.getStepAnswers(
-      context,
+    const decontaminationPlan = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_SOILS_DECONTAMINATION_SELECTION",
     )?.decontaminationPlan;
 

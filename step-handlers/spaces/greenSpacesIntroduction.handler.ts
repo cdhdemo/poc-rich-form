@@ -1,15 +1,21 @@
 import { UrbanProjectCustomCreationStep } from "../../../urban-project/creationSteps";
+import { FormState } from "../../form-state/formState";
 import { BaseStepHandler, StepContext } from "../step.handler";
 
-export class PublicSpacesIntroductionHandler extends BaseStepHandler {
+export class GreenSpacesIntroductionHandler extends BaseStepHandler {
   protected override readonly stepId: UrbanProjectCustomCreationStep =
-    "URBAN_PROJECT_PUBLIC_SPACES_INTRODUCTION";
+    "URBAN_PROJECT_GREEN_SPACES_INTRODUCTION";
 
   previous(context: StepContext): void {
-    const spacesCategoriesDistribution = BaseStepHandler.getStepAnswers(
-      context,
+    const spacesCategoriesDistribution = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_SPACES_CATEGORIES_SURFACE_AREA",
     )?.spacesCategoriesDistribution;
+
+    if (spacesCategoriesDistribution?.PUBLIC_SPACES) {
+      this.navigateTo(context, "URBAN_PROJECT_PUBLIC_SPACES_DISTRIBUTION");
+      return;
+    }
 
     if (spacesCategoriesDistribution?.LIVING_AND_ACTIVITY_SPACES) {
       this.navigateTo(context, "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION");
@@ -20,6 +26,6 @@ export class PublicSpacesIntroductionHandler extends BaseStepHandler {
   }
 
   next(context: StepContext): void {
-    this.navigateTo(context, "URBAN_PROJECT_PUBLIC_SPACES_DISTRIBUTION");
+    this.navigateTo(context, "URBAN_PROJECT_GREEN_SPACES_SURFACE_AREA_DISTRIBUTION");
   }
 }

@@ -1,6 +1,6 @@
 import { AnswerSetEvent } from "../form-events/answerFormEvent";
 import { FormEvent } from "../form-events/events.type";
-import { InvalidStepEvent } from "../form-events/invalidStepFormEvent";
+import { FormState } from "../form-state/formState";
 import { StepAnswers } from "../steps.types";
 import { BaseStepHandler, StepContext } from "./step.handler";
 
@@ -34,19 +34,8 @@ export abstract class BaseAnswerStepHandler<T extends keyof StepAnswers = keyof 
     return !!this.getAnswers(context);
   }
 
-  protected invalidateDependentSteps(
-    context: StepContext,
-    dependentSteps: (keyof StepAnswers)[],
-  ): void {
-    dependentSteps.forEach((step) => {
-      if (BaseAnswerStepHandler.getStepAnswers(context, step)) {
-        context.pocUrbanProject.events.push(InvalidStepEvent.new(step));
-      }
-    });
-  }
-
   getAnswers(context: StepContext): StepAnswers[T] | undefined {
-    return BaseAnswerStepHandler.getStepAnswers<T>(context, this.stepId);
+    return FormState.getStepAnswers<T>(context.pocUrbanProject.events, this.stepId);
   }
 
   load(context: StepContext) {

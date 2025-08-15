@@ -1,25 +1,16 @@
 import { UrbanProjectCustomCreationStep } from "../../../urban-project/creationSteps";
+import { FormState } from "../../form-state/formState";
 import { BaseStepHandler, StepContext } from "../step.handler";
 
-export class SoilsSummaryHandler extends BaseStepHandler {
+export class PublicSpacesIntroductionHandler extends BaseStepHandler {
   protected override readonly stepId: UrbanProjectCustomCreationStep =
-    "URBAN_PROJECT_SPACES_SOILS_SUMMARY";
+    "URBAN_PROJECT_PUBLIC_SPACES_INTRODUCTION";
 
   previous(context: StepContext): void {
-    const spacesCategoriesDistribution = BaseStepHandler.getStepAnswers(
-      context,
+    const spacesCategoriesDistribution = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_SPACES_CATEGORIES_SURFACE_AREA",
     )?.spacesCategoriesDistribution;
-
-    if (spacesCategoriesDistribution?.GREEN_SPACES) {
-      this.navigateTo(context, "URBAN_PROJECT_GREEN_SPACES_SURFACE_AREA_DISTRIBUTION");
-      return;
-    }
-
-    if (spacesCategoriesDistribution?.PUBLIC_SPACES) {
-      this.navigateTo(context, "URBAN_PROJECT_PUBLIC_SPACES_DISTRIBUTION");
-      return;
-    }
 
     if (spacesCategoriesDistribution?.LIVING_AND_ACTIVITY_SPACES) {
       this.navigateTo(context, "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION");
@@ -30,6 +21,6 @@ export class SoilsSummaryHandler extends BaseStepHandler {
   }
 
   next(context: StepContext): void {
-    this.navigateTo(context, "URBAN_PROJECT_SOILS_CARBON_SUMMARY");
+    this.navigateTo(context, "URBAN_PROJECT_PUBLIC_SPACES_DISTRIBUTION");
   }
 }

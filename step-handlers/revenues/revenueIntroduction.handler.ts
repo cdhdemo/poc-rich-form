@@ -1,4 +1,5 @@
 import { UrbanProjectCustomCreationStep } from "../../../urban-project/creationSteps";
+import { FormState } from "../../form-state/formState";
 import { BaseStepHandler, StepContext } from "../step.handler";
 
 export class RevenueIntroductionHandler extends BaseStepHandler {
@@ -6,13 +7,13 @@ export class RevenueIntroductionHandler extends BaseStepHandler {
     "URBAN_PROJECT_REVENUE_INTRODUCTION";
 
   previous(context: StepContext): void {
-    const livingAndActivitySpacesDistribution = BaseStepHandler.getStepAnswers(
-      context,
+    const livingAndActivitySpacesDistribution = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION",
     )?.livingAndActivitySpacesDistribution;
 
-    const buildingsResalePlannedAfterDevelopment = BaseStepHandler.getStepAnswers(
-      context,
+    const buildingsResalePlannedAfterDevelopment = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_BUILDINGS_RESALE_SELECTION",
     )?.buildingsResalePlannedAfterDevelopment;
 
@@ -28,8 +29,8 @@ export class RevenueIntroductionHandler extends BaseStepHandler {
   }
 
   next(context: StepContext): void {
-    const siteResalePlannedAfterDevelopment = BaseStepHandler.getStepAnswers(
-      context,
+    const siteResalePlannedAfterDevelopment = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_SITE_RESALE_SELECTION",
     )?.siteResalePlannedAfterDevelopment;
 
@@ -38,8 +39,8 @@ export class RevenueIntroductionHandler extends BaseStepHandler {
       return;
     }
 
-    const livingAndActivitySpacesDistribution = BaseStepHandler.getStepAnswers(
-      context,
+    const livingAndActivitySpacesDistribution = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION",
     )?.livingAndActivitySpacesDistribution;
 
@@ -47,8 +48,8 @@ export class RevenueIntroductionHandler extends BaseStepHandler {
       livingAndActivitySpacesDistribution?.BUILDINGS &&
       livingAndActivitySpacesDistribution.BUILDINGS > 0
     ) {
-      const buildingsResalePlannedAfterDevelopment = BaseStepHandler.getStepAnswers(
-        context,
+      const buildingsResalePlannedAfterDevelopment = FormState.getStepAnswers(
+        context.pocUrbanProject.events,
         "URBAN_PROJECT_BUILDINGS_RESALE_SELECTION",
       )?.buildingsResalePlannedAfterDevelopment;
 

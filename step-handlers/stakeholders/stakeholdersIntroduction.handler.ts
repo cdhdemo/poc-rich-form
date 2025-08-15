@@ -1,11 +1,12 @@
+import { FormState } from "../../form-state/formState";
 import { BaseStepHandler, StepContext } from "../step.handler";
 
 export class StakeholdersIntroductionHandler extends BaseStepHandler {
   protected override readonly stepId = "URBAN_PROJECT_STAKEHOLDERS_INTRODUCTION";
 
   previous(context: StepContext): void {
-    const livingAndActivitySpacesDistribution = BaseStepHandler.getStepAnswers(
-      context,
+    const livingAndActivitySpacesDistribution = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION",
     )?.livingAndActivitySpacesDistribution;
 
@@ -17,8 +18,8 @@ export class StakeholdersIntroductionHandler extends BaseStepHandler {
       return;
     }
 
-    const decontaminationPlan = BaseStepHandler.getStepAnswers(
-      context,
+    const decontaminationPlan = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_SOILS_DECONTAMINATION_SELECTION",
     )?.decontaminationPlan;
 

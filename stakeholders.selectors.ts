@@ -8,7 +8,7 @@ import {
   getProjectAvailableStakeholders,
   hasStakeholder,
 } from "../stakeholders.selectors";
-import { FormStateHandler } from "./handlers/formState.handler";
+import { FormState } from "./form-state/formState";
 
 export const getUrbanProjectAvailableStakeholders = createSelector(
   [
@@ -18,7 +18,8 @@ export const getUrbanProjectAvailableStakeholders = createSelector(
   (projectAvailableStakeholders, events) => {
     const stakeholders: AvailableProjectStakeholder[] = projectAvailableStakeholders.slice();
 
-    const projectDeveloper = FormStateHandler.new(events).getStepAnswers(
+    const projectDeveloper = FormState.getStepAnswers(
+      events,
       "URBAN_PROJECT_STAKEHOLDERS_PROJECT_DEVELOPER",
     )?.projectDeveloper;
 
@@ -30,7 +31,8 @@ export const getUrbanProjectAvailableStakeholders = createSelector(
       });
     }
 
-    const reinstatementContractOwner = FormStateHandler.new(events).getStepAnswers(
+    const reinstatementContractOwner = FormState.getStepAnswers(
+      events,
       "URBAN_PROJECT_STAKEHOLDERS_REINSTATEMENT_CONTRACT_OWNER",
     )?.reinstatementContractOwner;
 
@@ -52,11 +54,13 @@ export const getUrbanProjectAvailableLocalAuthoritiesStakeholders = createSelect
     (state: RootState) => state.projectCreation.pocUrbanProject.events,
   ],
   (availableLocalAuthoritiesStakeholders, events) => {
-    const projectDeveloper = FormStateHandler.new(events).getStepAnswers(
+    const projectDeveloper = FormState.getStepAnswers(
+      events,
       "URBAN_PROJECT_STAKEHOLDERS_PROJECT_DEVELOPER",
     )?.projectDeveloper;
 
-    const reinstatementContractOwner = FormStateHandler.new(events).getStepAnswers(
+    const reinstatementContractOwner = FormState.getStepAnswers(
+      events,
       "URBAN_PROJECT_STAKEHOLDERS_REINSTATEMENT_CONTRACT_OWNER",
     )?.reinstatementContractOwner;
 

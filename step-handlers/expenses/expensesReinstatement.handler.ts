@@ -1,21 +1,19 @@
 // handlers/urban-project-expenses-reinstatement.handler.ts
 import { computeProjectReinstatementExpenses } from "shared";
 
+import { FormState } from "../../form-state/formState";
 import { StepAnswers } from "../../steps.types";
 import { BaseAnswerStepHandler } from "../answerStep.handler";
-import { FormStateHandler } from "../formState.handler";
 import { StepContext } from "../step.handler";
 
 export class UrbanProjectReinstatementExpensesHandler extends BaseAnswerStepHandler {
   protected readonly stepId: keyof StepAnswers = "URBAN_PROJECT_EXPENSES_REINSTATEMENT";
 
   setDefaultAnswers(context: StepContext): void {
-    const soilsDistribution = FormStateHandler.new(
-      context.pocUrbanProject.events,
-    ).getProjectSoilDistribution();
+    const soilsDistribution = FormState.getProjectSoilDistribution(context.pocUrbanProject.events);
     const decontaminatedSurface =
-      BaseAnswerStepHandler.getStepAnswers<"URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA">(
-        context,
+      FormState.getStepAnswers<"URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA">(
+        context.pocUrbanProject.events,
         "URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA",
       )?.decontaminatedSurfaceArea;
 

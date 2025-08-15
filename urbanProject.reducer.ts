@@ -4,7 +4,7 @@ import { createReducer, UnknownAction } from "@reduxjs/toolkit";
 // Importez vos actions existantes
 import { ProjectCreationState } from "../createProject.reducer";
 import { FormEvent } from "./form-events/events.type";
-import { stepHandlerRegistry } from "./stepHandlerRegistry";
+import { stepHandlerRegistry } from "./step-handlers/stepHandlerRegistry";
 import { isInformationalStep } from "./steps";
 import { StepAnswers } from "./steps.types";
 import { loadStep, completeStep, navigateToPrevious, navigateToNext } from "./urbanProject.actions";

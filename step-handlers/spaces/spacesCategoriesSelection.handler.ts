@@ -29,8 +29,6 @@ export class UrbanProjectSpacesCategoriesSelectionHandler extends BaseAnswerStep
       return;
     }
 
-    this.invalidateDependentSteps(context, ["URBAN_PROJECT_SPACES_CATEGORIES_SURFACE_AREA"]);
-
     this.next(context);
   }
 
@@ -38,7 +36,6 @@ export class UrbanProjectSpacesCategoriesSelectionHandler extends BaseAnswerStep
     context: StepContext,
     spaceCategory: UrbanSpaceCategory,
   ): void {
-    // Auto-remplir la distribution des surfaces
     BaseAnswerStepHandler.addAnswerEvent(
       context,
       "URBAN_PROJECT_SPACES_CATEGORIES_SURFACE_AREA",
@@ -49,7 +46,6 @@ export class UrbanProjectSpacesCategoriesSelectionHandler extends BaseAnswerStep
       },
       "system",
     );
-    // Passer directement à l'étape de développement
     this.navigateTo(context, "URBAN_PROJECT_SPACES_DEVELOPMENT_PLAN_INTRODUCTION");
   }
 }

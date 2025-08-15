@@ -9,12 +9,7 @@ type SerializedBaseEvent = {
 export type FormEvent =
   | SerializedNavigateEvent
   | SerializedAnswerEvent<keyof StepAnswers>
-  | SerializedInvalidStepEvent;
 
-type SerializedInvalidStepEvent = SerializedBaseEvent & {
-  type: "INVALID_STEP";
-  stepId: UrbanProjectCustomCreationStep;
-};
 type SerializedNavigateEvent = SerializedBaseEvent & {
   type: "STEP_NAVIGATED";
   stepId: UrbanProjectCustomCreationStep;

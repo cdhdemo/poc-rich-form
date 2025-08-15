@@ -21,19 +21,27 @@ export class SoilsDecontaminationSelectionHandler extends BaseAnswerStepHandler 
   ): void {
     this.updateAnswers(context, answers);
 
-          if (answers.decontaminationPlan === "partial") {
+    if (answers.decontaminationPlan === "partial") {
       this.next(context);
       return;
     }
 
     if (answers.decontaminationPlan === "none") {
-      BaseAnswerStepHandler.addAnswerEvent(context, "URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA", { decontaminatedSurfaceArea: 0 });
+      BaseAnswerStepHandler.addAnswerEvent(
+        context,
+        "URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA",
+        { decontaminatedSurfaceArea: 0 },
+      );
     }
 
     if (answers.decontaminationPlan === "unknown") {
       const contaminatedSoilSurface = context.siteData?.contaminatedSoilSurface ?? 0;
 
-      BaseAnswerStepHandler.addAnswerEvent(context, "URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA", { decontaminatedSurfaceArea: contaminatedSoilSurface * 0.25 });
+      BaseAnswerStepHandler.addAnswerEvent(
+        context,
+        "URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA",
+        { decontaminatedSurfaceArea: contaminatedSoilSurface * 0.25 },
+      );
     }
 
     const livingAndActivitySpacesDistribution = BaseAnswerStepHandler.getStepAnswers(
