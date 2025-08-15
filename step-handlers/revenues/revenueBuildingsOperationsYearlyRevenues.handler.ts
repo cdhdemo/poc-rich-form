@@ -1,3 +1,4 @@
+import { FormState } from "../../form-state/formState";
 import { StepAnswers } from "../../steps.types";
 import { BaseAnswerStepHandler } from "../answerStep.handler";
 import { StepContext } from "../step.handler";
@@ -9,8 +10,8 @@ export class RevenueBuildingsOperationsYearlyRevenuesHandler extends BaseAnswerS
   setDefaultAnswers(): void {}
 
   previous(context: StepContext): void {
-    const siteResalePlannedAfterDevelopment = BaseAnswerStepHandler.getStepAnswers(
-      context,
+    const siteResalePlannedAfterDevelopment = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_SITE_RESALE_SELECTION",
     )?.siteResalePlannedAfterDevelopment;
 

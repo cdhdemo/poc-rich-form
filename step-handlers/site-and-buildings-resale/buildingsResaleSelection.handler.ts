@@ -1,4 +1,5 @@
 import { getFutureOperator } from "../../../stakeholders";
+import { FormState } from "../../form-state/formState";
 import { StepAnswers } from "../../steps.types";
 import { BaseAnswerStepHandler } from "../answerStep.handler";
 import { StepContext } from "../step.handler";
@@ -23,8 +24,8 @@ export class BuildingsResaleSelectionHandler extends BaseAnswerStepHandler {
   ): void {
     const { buildingsResalePlannedAfterDevelopment } = answers;
 
-    const projectDeveloper = BaseAnswerStepHandler.getStepAnswers(
-      context,
+    const projectDeveloper = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_STAKEHOLDERS_PROJECT_DEVELOPER",
     )?.projectDeveloper;
 

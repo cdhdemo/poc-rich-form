@@ -1,3 +1,4 @@
+import { FormState } from "../../form-state/formState";
 import { StepAnswers } from "../../steps.types";
 import { BaseAnswerStepHandler } from "../answerStep.handler";
 import { StepContext } from "../step.handler";
@@ -13,8 +14,8 @@ export class ResidentialAndActivitySpacesDistributionHandler extends BaseAnswerS
   }
 
   next(context: StepContext): void {
-    const spacesCategoriesDistribution = BaseAnswerStepHandler.getStepAnswers(
-      context,
+    const spacesCategoriesDistribution = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_SPACES_CATEGORIES_SURFACE_AREA",
     )?.spacesCategoriesDistribution;
 

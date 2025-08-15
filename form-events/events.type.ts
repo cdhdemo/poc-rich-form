@@ -6,9 +6,7 @@ type SerializedBaseEvent = {
   source: "user" | "system";
 };
 
-export type FormEvent =
-  | SerializedNavigateEvent
-  | SerializedAnswerEvent<keyof StepAnswers>
+export type FormEvent = SerializedNavigateEvent | SerializedAnswerEvent<keyof StepAnswers>;
 
 type SerializedNavigateEvent = SerializedBaseEvent & {
   type: "STEP_NAVIGATED";

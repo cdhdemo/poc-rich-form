@@ -1,3 +1,4 @@
+import { InformationalStep, StepAnswers } from "../steps.types";
 import { AnswerStepHandler } from "./answerStep.handler";
 import { BuildingsFloorSurfaceAreaHandler } from "./buildings/buildingsFloorSurfaceArea.handler";
 import { BuildingsIntroductionHandler } from "./buildings/buildingsIntroduction.handler";
@@ -41,7 +42,6 @@ import { StakeholdersProjectDeveloperHandler } from "./stakeholders/stakeholders
 import { StakeholdersReinstatementContractOwnerHandler } from "./stakeholders/stakeholdersReinstatementContractOwner.handler";
 import { BaseStepHandler } from "./step.handler";
 import { FinalSummaryHandler } from "./summary/finalSummary.handler";
-import { InformationalStep, StepAnswers } from "../steps.types";
 
 const informationalStepHandlers: Record<InformationalStep, BaseStepHandler> = {
   URBAN_PROJECT_SPACES_CATEGORIES_INTRODUCTION: new SpacesCategoriesIntroductionHandler(),

@@ -17,6 +17,26 @@ export const FormState = {
     return event?.payload;
   },
 
+  hasBuildings(events: FormEvent[]) {
+    const livingAndActivitySpacesDistribution = FormState.getStepAnswers(
+      events,
+      "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION",
+    )?.livingAndActivitySpacesDistribution;
+
+    return (
+      livingAndActivitySpacesDistribution?.BUILDINGS &&
+      livingAndActivitySpacesDistribution.BUILDINGS > 0
+    );
+  },
+
+  hasBuildingsResalePlannedAfterDevelopment(events: FormEvent[]) {
+    const buildingsResalePlannedAfterDevelopment = FormState.getStepAnswers(
+      events,
+      "URBAN_PROJECT_BUILDINGS_RESALE_SELECTION",
+    )?.buildingsResalePlannedAfterDevelopment;
+    return buildingsResalePlannedAfterDevelopment;
+  },
+
   getProjectSoilDistribution(events: FormEvent[]) {
     const spacesCategoriesDistribution = FormState.getStepAnswers(
       events,

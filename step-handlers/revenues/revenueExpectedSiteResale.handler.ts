@@ -1,3 +1,4 @@
+import { FormState } from "../../form-state/formState";
 import { StepAnswers } from "../../steps.types";
 import { BaseAnswerStepHandler } from "../answerStep.handler";
 import { StepContext } from "../step.handler";
@@ -12,21 +13,8 @@ export class RevenueExpectedSiteResaleHandler extends BaseAnswerStepHandler {
   }
 
   next(context: StepContext): void {
-    const livingAndActivitySpacesDistribution = BaseAnswerStepHandler.getStepAnswers(
-      context,
-      "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION",
-    )?.livingAndActivitySpacesDistribution;
-
-    if (
-      livingAndActivitySpacesDistribution?.BUILDINGS &&
-      livingAndActivitySpacesDistribution.BUILDINGS > 0
-    ) {
-      const buildingsResalePlannedAfterDevelopment = BaseAnswerStepHandler.getStepAnswers(
-        context,
-        "URBAN_PROJECT_BUILDINGS_RESALE_SELECTION",
-      )?.buildingsResalePlannedAfterDevelopment;
-
-      if (buildingsResalePlannedAfterDevelopment) {
+    if (FormState.hasBuildings(context.pocUrbanProject.events)) {
+      if (FormState.hasBuildingsResalePlannedAfterDevelopment(context.pocUrbanProject.events)) {
         this.navigateTo(context, "URBAN_PROJECT_REVENUE_BUILDINGS_RESALE");
         return;
       }

@@ -1,4 +1,5 @@
 import { UrbanProjectCustomCreationStep } from "../../../urban-project/creationSteps";
+import { FormState } from "../../form-state/formState";
 import { BaseStepHandler, StepContext } from "../step.handler";
 
 export class SpaceDevelopmentPlanIntroductionHandler extends BaseStepHandler {
@@ -6,8 +7,8 @@ export class SpaceDevelopmentPlanIntroductionHandler extends BaseStepHandler {
     "URBAN_PROJECT_SPACES_DEVELOPMENT_PLAN_INTRODUCTION";
 
   override previous(context: StepContext): void {
-    const formState = this.getFormState(context);
-    const spaceCategories = formState.getStepAnswers(
+    const spaceCategories = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_SPACES_CATEGORIES_SELECTION",
     )?.spacesCategories;
     this.navigateTo(
@@ -19,9 +20,8 @@ export class SpaceDevelopmentPlanIntroductionHandler extends BaseStepHandler {
   }
 
   override next(context: StepContext): void {
-    const formState = this.getFormState(context);
-
-    const spacesCategoriesDistribution = formState.getStepAnswers(
+    const spacesCategoriesDistribution = FormState.getStepAnswers(
+      context.pocUrbanProject.events,
       "URBAN_PROJECT_SPACES_CATEGORIES_SURFACE_AREA",
     )?.spacesCategoriesDistribution;
 

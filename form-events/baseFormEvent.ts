@@ -11,10 +11,7 @@ type Props<TType, TPayload> = {
   payload?: TPayload;
 };
 
-export abstract class BaseFormEvent<
-  TType extends "ANSWER_SET" | "STEP_NAVIGATED",
-  TPayload,
-> {
+export abstract class BaseFormEvent<TType extends "ANSWER_SET" | "STEP_NAVIGATED", TPayload> {
   protected abstract readonly type: TType;
 
   protected readonly stepId: TType extends "ANSWER_SET"

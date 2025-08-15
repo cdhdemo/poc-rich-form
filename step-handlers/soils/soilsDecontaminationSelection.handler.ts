@@ -1,3 +1,4 @@
+import { FormState } from "../../form-state/formState";
 import { StepAnswers } from "../../steps.types";
 import { BaseAnswerStepHandler } from "../answerStep.handler";
 import { StepContext } from "../step.handler";
@@ -44,15 +45,7 @@ export class SoilsDecontaminationSelectionHandler extends BaseAnswerStepHandler 
       );
     }
 
-    const livingAndActivitySpacesDistribution = BaseAnswerStepHandler.getStepAnswers(
-      context,
-      "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION",
-    )?.livingAndActivitySpacesDistribution;
-
-    if (
-      livingAndActivitySpacesDistribution?.BUILDINGS &&
-      livingAndActivitySpacesDistribution.BUILDINGS > 0
-    ) {
+    if (FormState.hasBuildings(context.pocUrbanProject.events)) {
       this.navigateTo(context, "URBAN_PROJECT_BUILDINGS_INTRODUCTION");
       return;
     }
