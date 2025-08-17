@@ -1,6 +1,5 @@
 import { ProjectCreationState } from "../../createProject.reducer";
 import { UrbanProjectCustomCreationStep } from "../../urban-project/creationSteps";
-import { NavigationEvent } from "../form-events/navigateFormEvent";
 
 export type StepContext = ProjectCreationState;
 
@@ -16,6 +15,6 @@ export abstract class BaseStepHandler {
   abstract next(context: StepContext): void;
 
   protected navigateTo(context: StepContext, stepId: UrbanProjectCustomCreationStep): void {
-    context.pocUrbanProject.events.push(NavigationEvent.new(stepId));
+    context.pocUrbanProject.currentStep = stepId;
   }
 }

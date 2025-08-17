@@ -6,21 +6,10 @@ export class RevenueIntroductionHandler extends BaseStepHandler {
   protected override readonly stepId: UrbanProjectCustomCreationStep =
     "URBAN_PROJECT_REVENUE_INTRODUCTION";
 
-  previous(context: StepContext): void {
-    const livingAndActivitySpacesDistribution = FormState.getStepAnswers(
-      context.pocUrbanProject.events,
-      "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION",
-    )?.livingAndActivitySpacesDistribution;
-
-    const buildingsResalePlannedAfterDevelopment = FormState.getStepAnswers(
-      context.pocUrbanProject.events,
-      "URBAN_PROJECT_BUILDINGS_RESALE_SELECTION",
-    )?.buildingsResalePlannedAfterDevelopment;
-
+  previous(context: StepContext): void {   
     if (
-      livingAndActivitySpacesDistribution?.BUILDINGS &&
-      livingAndActivitySpacesDistribution.BUILDINGS > 0 &&
-      !buildingsResalePlannedAfterDevelopment
+      FormState.hasBuildings(context.pocUrbanProject.events) &&
+      !FormState.hasBuildingsResalePlannedAfterDevelopment(context.pocUrbanProject.events)
     ) {
       this.navigateTo(context, "URBAN_PROJECT_EXPENSES_PROJECTED_BUILDINGS_OPERATING_EXPENSES");
       return;
@@ -39,21 +28,10 @@ export class RevenueIntroductionHandler extends BaseStepHandler {
       return;
     }
 
-    const livingAndActivitySpacesDistribution = FormState.getStepAnswers(
-      context.pocUrbanProject.events,
-      "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION",
-    )?.livingAndActivitySpacesDistribution;
-
     if (
-      livingAndActivitySpacesDistribution?.BUILDINGS &&
-      livingAndActivitySpacesDistribution.BUILDINGS > 0
+      FormState.hasBuildings(context.pocUrbanProject.events)
     ) {
-      const buildingsResalePlannedAfterDevelopment = FormState.getStepAnswers(
-        context.pocUrbanProject.events,
-        "URBAN_PROJECT_BUILDINGS_RESALE_SELECTION",
-      )?.buildingsResalePlannedAfterDevelopment;
-
-      if (buildingsResalePlannedAfterDevelopment) {
+      if (FormState.hasBuildingsResalePlannedAfterDevelopment(context.pocUrbanProject.events)) {
         this.navigateTo(context, "URBAN_PROJECT_REVENUE_BUILDINGS_RESALE");
         return;
       }

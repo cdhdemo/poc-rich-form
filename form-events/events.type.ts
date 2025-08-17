@@ -1,4 +1,3 @@
-import { UrbanProjectCustomCreationStep } from "../../urban-project/creationSteps";
 import { StepAnswers } from "../steps.types";
 
 type SerializedBaseEvent = {
@@ -6,12 +5,7 @@ type SerializedBaseEvent = {
   source: "user" | "system";
 };
 
-export type FormEvent = SerializedNavigateEvent | SerializedAnswerEvent<keyof StepAnswers>;
-
-type SerializedNavigateEvent = SerializedBaseEvent & {
-  type: "STEP_NAVIGATED";
-  stepId: UrbanProjectCustomCreationStep;
-};
+export type FormEvent = SerializedAnswerEvent<keyof StepAnswers>;
 
 export type SerializedAnswerEvent<T extends keyof StepAnswers> = SerializedBaseEvent & {
   type: "ANSWER_SET";

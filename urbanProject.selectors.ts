@@ -34,11 +34,7 @@ export const selectFormAnswers = createSelector([selectEvents], (events) =>
 );
 
 export const selectCurrentStep = createSelector(
-  [selectEvents],
-  (events) =>
-    events
-      .slice()
-      .sort((x, y) => y.timestamp - x.timestamp)
-      .find((event) => event.type === "STEP_NAVIGATED")?.stepId ??
-    "URBAN_PROJECT_SPACES_CATEGORIES_INTRODUCTION",
+  [(state: RootState) => state.projectCreation.pocUrbanProject],
+  (state) =>
+    state.currentStep,
 );

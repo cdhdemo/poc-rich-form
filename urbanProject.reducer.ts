@@ -8,14 +8,17 @@ import { stepHandlerRegistry } from "./step-handlers/stepHandlerRegistry";
 import { isInformationalStep } from "./steps";
 import { StepAnswers } from "./steps.types";
 import { loadStep, completeStep, navigateToPrevious, navigateToNext } from "./urbanProject.actions";
+import { UrbanProjectCustomCreationStep } from "../../core/urban-project/creationSteps"
 
 export type UrbanProjectState = {
   events: FormEvent[];
+  currentStep: UrbanProjectCustomCreationStep;
   saveState: "idle" | "loading" | "success" | "error";
 };
 
 export const initialState: UrbanProjectState = {
   events: [],
+  currentStep: "URBAN_PROJECT_SPACES_CATEGORIES_INTRODUCTION",
   saveState: "idle",
 };
 
