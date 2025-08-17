@@ -6,6 +6,8 @@ import { StepContext } from "../step.handler";
 
 export class UrbanProjectScheduleProjectionHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = "URBAN_PROJECT_SCHEDULE_PROJECTION";
+  
+  handleUpdateSideEffects(): void { }
 
   setDefaultAnswers(context: StepContext): void {
     const { installation, reinstatement, firstYearOfOperations } = getDefaultScheduleForProject({

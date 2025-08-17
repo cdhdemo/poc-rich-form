@@ -4,8 +4,8 @@ import { describe, it, expect } from "vitest";
 import { createStore } from "@/shared/core/store-config/store";
 import { getTestAppDependencies } from "@/test/testAppDependencies";
 
-import { UrbanProjectCustomCreationStep } from "../../urban-project/creationSteps";
 import { getInitialState, ProjectCreationState } from "../../createProject.reducer";
+import { UrbanProjectCustomCreationStep } from "../../urban-project/creationSteps";
 import { initialState as urbanProjectInitialState } from "../../urban-project/urbanProject.reducer";
 import { FormEvent } from "../form-events/events.type";
 import { completeStep, navigateToNext, navigateToPrevious } from "../urbanProject.actions";
@@ -490,7 +490,9 @@ describe("urbanProject.reducer - Navigation Consistency Tests", () => {
 
         steps.forEach((currentStep, index) => {
           const nextStep = steps[index + 1];
-          if (!nextStep) { return; }
+          if (!nextStep) {
+            return;
+          }
 
           switch (currentStep) {
             case "URBAN_PROJECT_BUILDINGS_INTRODUCTION":
@@ -535,17 +537,17 @@ describe("urbanProject.reducer - Navigation Consistency Tests", () => {
                 completeStep({
                   stepId: "URBAN_PROJECT_BUILDINGS_FLOOR_SURFACE_AREA",
                   answers: {
-                    buildingsFloorSurfaceArea: 1000
+                    buildingsFloorSurfaceArea: 1000,
                   },
                 }),
               );
-              break
-            case "URBAN_PROJECT_BUILDINGS_USE_SURFACE_AREA_DISTRIBUTION": 
+              break;
+            case "URBAN_PROJECT_BUILDINGS_USE_SURFACE_AREA_DISTRIBUTION":
               store.dispatch(
                 completeStep({
                   stepId: "URBAN_PROJECT_BUILDINGS_USE_SURFACE_AREA_DISTRIBUTION",
                   answers: {
-                    buildingsUsesDistribution: {RESIDENTIAL: 1000}
+                    buildingsUsesDistribution: { RESIDENTIAL: 1000 },
                   },
                 }),
               );

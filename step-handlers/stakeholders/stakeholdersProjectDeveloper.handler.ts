@@ -6,6 +6,7 @@ export class StakeholdersProjectDeveloperHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = "URBAN_PROJECT_STAKEHOLDERS_PROJECT_DEVELOPER";
 
   setDefaultAnswers(): void {}
+  handleUpdateSideEffects(): void { }
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_STAKEHOLDERS_INTRODUCTION");

@@ -4,17 +4,26 @@ import {
   getUrbanProjectSoilsDistributionFromSpaces,
   UrbanSpacesByCategory,
 } from "../../urban-project/urbanProjectSoils";
-import { FormEvent, SerializedAnswerEvent } from "../form-events/events.type";
+import { FormEvent, SerializedAnswerSetEvent, SerializedAnswerDeletionEvent } from "../form-events/events.type";
 import { StepAnswers } from "../steps.types";
 
 export const FormState = {
   getStepAnswers<K extends keyof StepAnswers>(events: FormEvent[], stepId: K) {
     const sortedEvents = events.slice().sort((x, y) => y.timestamp - x.timestamp);
-    const event = sortedEvents.find(
-      (e): e is SerializedAnswerEvent<typeof stepId> =>
-        e.stepId === stepId && e.type === "ANSWER_SET",
-    );
-    return event?.payload;
+    const event = sortedEvents.find((e): e is SerializedAnswerSetEvent<K> | SerializedAnswerDeletionEvent<K> => e.stepId === stepId);
+    if (event && event.type === "ANSWER_SET") {
+      return event.payload;
+    }
+    return undefined;
+  },
+
+  hasLastAnswerFromSystem(events: FormEvent[], stepId: keyof StepAnswers) {
+    const sortedEvents = events.slice().sort((x, y) => y.timestamp - x.timestamp);
+    const event = sortedEvents.find((e) => e.stepId === stepId);
+    if (event && event.type === "ANSWER_SET") {
+      return event.source === "system";
+    }
+    return false;
   },
 
   hasBuildings(events: FormEvent[]) {

@@ -1,5 +1,5 @@
 import { StepAnswers } from "../steps.types";
-import { BaseFormEvent } from "./baseFormEvent";
+import { BaseFormEvent } from "./BaseAnswerEvent";
 
 type StepPayload<T extends keyof StepAnswers> = StepAnswers[T];
 

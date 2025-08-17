@@ -1,28 +1,21 @@
-import { UrbanProjectCustomCreationStep } from "../../urban-project/creationSteps";
 import { StepAnswers } from "../steps.types";
 
-type StepId<T_Type> = T_Type extends "ANSWER_SET"
-  ? keyof StepAnswers
-  : UrbanProjectCustomCreationStep;
-
-type Props<TType, T_Payload> = {
-  stepId: StepId<TType>;
+type StepId = keyof StepAnswers;
+type Props<T_Payload> = {
+  stepId: StepId;
   source?: "user" | "system";
   payload?: T_Payload;
 };
 
-export abstract class BaseFormEvent<T_Type extends "ANSWER_SET", T_Payload> {
+export abstract class BaseFormEvent<T_Type extends "ANSWER_SET" | "ANSWER_DELETED", T_Payload> {
   protected abstract readonly type: T_Type;
-
-  protected readonly stepId: T_Type extends "ANSWER_SET"
-    ? keyof StepAnswers
-    : UrbanProjectCustomCreationStep;
+  protected readonly stepId: StepId;
 
   protected readonly timestamp: number;
   protected readonly source: "user" | "system";
   protected readonly payload?: T_Payload;
 
-  constructor({ stepId, source, payload }: Props<T_Type, T_Payload>) {
+  constructor({ stepId, source, payload }: Props<T_Payload>) {
     this.source = source ?? "user";
     this.stepId = stepId;
     this.payload = payload;

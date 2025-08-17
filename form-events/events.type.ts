@@ -5,10 +5,17 @@ type SerializedBaseEvent = {
   source: "user" | "system";
 };
 
-export type FormEvent = SerializedAnswerEvent<keyof StepAnswers>;
+export type FormEvent =
+  | SerializedAnswerSetEvent<keyof StepAnswers>
+  | SerializedAnswerDeletionEvent<keyof StepAnswers>;
 
-export type SerializedAnswerEvent<T extends keyof StepAnswers> = SerializedBaseEvent & {
+export type SerializedAnswerSetEvent<T extends keyof StepAnswers> = SerializedBaseEvent & {
   type: "ANSWER_SET";
   stepId: T;
   payload: StepAnswers[T];
+};
+
+export type SerializedAnswerDeletionEvent<T extends keyof StepAnswers> = SerializedBaseEvent & {
+  type: "ANSWER_DELETED";
+  stepId: T;
 };

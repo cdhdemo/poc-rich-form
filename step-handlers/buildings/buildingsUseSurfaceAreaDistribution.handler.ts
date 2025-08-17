@@ -7,6 +7,7 @@ export class BuildingsUseSurfaceAreaDistributionHandler extends BaseAnswerStepHa
     "URBAN_PROJECT_BUILDINGS_USE_SURFACE_AREA_DISTRIBUTION";
 
   setDefaultAnswers(): void {}
+  handleUpdateSideEffects(): void { }
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_BUILDINGS_USE_INTRODUCTION");

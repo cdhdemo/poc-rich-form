@@ -6,6 +6,7 @@ export class ProjectPhaseHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = "URBAN_PROJECT_PROJECT_PHASE";
 
   setDefaultAnswers(): void {}
+  handleUpdateSideEffects(): void { }
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_SCHEDULE_PROJECTION");

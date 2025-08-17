@@ -1,13 +1,36 @@
 import { FormState } from "../../form-state/formState";
+import { BUILDINGS_STEPS } from "../../steps";
 import { StepAnswers } from "../../steps.types";
 import { BaseAnswerStepHandler } from "../answerStep.handler";
 import { StepContext } from "../step.handler";
 
-export class ResidentialAndActivitySpacesDistributionHandler extends BaseAnswerStepHandler {
-  protected override stepId: keyof StepAnswers =
-    "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION";
+const STEP_ID = "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION" as const;
 
-  setDefaultAnswers(): void {}
+export class ResidentialAndActivitySpacesDistributionHandler extends BaseAnswerStepHandler {
+  protected override stepId = STEP_ID;
+
+  setDefaultAnswers(): void { }
+
+  handleUpdateSideEffects(
+    context: StepContext,
+    previousAnswers: StepAnswers[typeof STEP_ID],
+    newAnswers: StepAnswers[typeof STEP_ID],
+  ) {
+    if (
+      previousAnswers.livingAndActivitySpacesDistribution?.BUILDINGS !==
+      newAnswers.livingAndActivitySpacesDistribution?.BUILDINGS
+    ) {
+      if (!newAnswers.livingAndActivitySpacesDistribution?.BUILDINGS) {
+        BUILDINGS_STEPS.forEach((stepId) => {
+          BaseAnswerStepHandler.addAnswerDeletionEvent(context, stepId);
+        });
+      }
+    }
+
+    if (FormState.hasLastAnswerFromSystem(context.pocUrbanProject.events, "URBAN_PROJECT_EXPENSES_REINSTATEMENT")) {
+      BaseAnswerStepHandler.addAnswerDeletionEvent(context, "URBAN_PROJECT_EXPENSES_REINSTATEMENT");
+    }
+  }
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_INTRODUCTION");

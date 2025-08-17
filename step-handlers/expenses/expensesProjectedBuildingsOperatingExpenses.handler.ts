@@ -7,6 +7,7 @@ export class ExpensesProjectedBuildingsOperatingExpensesHandler extends BaseAnsw
     "URBAN_PROJECT_EXPENSES_PROJECTED_BUILDINGS_OPERATING_EXPENSES";
 
   setDefaultAnswers(): void {}
+  handleUpdateSideEffects(): void { }
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_EXPENSES_INSTALLATION");

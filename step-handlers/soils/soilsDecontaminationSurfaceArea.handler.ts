@@ -6,7 +6,13 @@ import { StepContext } from "../step.handler";
 export class SoilsDecontaminationSurfaceAreaHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = "URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA";
 
-  setDefaultAnswers(): void {}
+  setDefaultAnswers(): void { }
+
+  handleUpdateSideEffects(context: StepContext): void {
+    if (FormState.hasLastAnswerFromSystem(context.pocUrbanProject.events, "URBAN_PROJECT_EXPENSES_REINSTATEMENT")) {
+      BaseAnswerStepHandler.addAnswerDeletionEvent(context, "URBAN_PROJECT_EXPENSES_REINSTATEMENT");
+    }
+  }
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_SOILS_DECONTAMINATION_SELECTION");

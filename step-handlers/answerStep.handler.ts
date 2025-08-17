@@ -1,4 +1,5 @@
-import { AnswerSetEvent } from "../form-events/answerFormEvent";
+import { AnswerDeletionEvent } from "../form-events/AnswerDeletionEvent";
+import { AnswerSetEvent } from "../form-events/AnswerSetEvent";
 import { FormEvent } from "../form-events/events.type";
 import { FormState } from "../form-state/formState";
 import { StepAnswers } from "../steps.types";
@@ -14,11 +15,15 @@ export interface AnswerStepHandler<TAnswers> {
 
 export abstract class BaseAnswerStepHandler<T extends keyof StepAnswers = keyof StepAnswers>
   extends BaseStepHandler
-  implements AnswerStepHandler<StepAnswers[T]>
-{
+  implements AnswerStepHandler<StepAnswers[T]> {
   protected abstract override readonly stepId: T;
 
   abstract setDefaultAnswers(context: StepContext): void;
+  abstract handleUpdateSideEffects(
+    context: StepContext,
+    previous: StepAnswers[T],
+    newAnswers: StepAnswers[T],
+  ): void;
 
   protected addAnswerEvent(
     context: StepContext,
@@ -28,10 +33,6 @@ export abstract class BaseAnswerStepHandler<T extends keyof StepAnswers = keyof 
     context.pocUrbanProject.events.push(
       AnswerSetEvent.new(this.stepId, payload, source) as FormEvent,
     );
-  }
-
-  protected hasExistingAnswers(context: StepContext): boolean {
-    return !!this.getAnswers(context);
   }
 
   getAnswers(context: StepContext): StepAnswers[T] | undefined {
@@ -56,7 +57,9 @@ export abstract class BaseAnswerStepHandler<T extends keyof StepAnswers = keyof 
   }
 
   isSameAnswers(base: StepAnswers[T], other: StepAnswers[T]) {
-    return JSON.stringify(Object.entries(base).sort()) === JSON.stringify(Object.entries(other).sort())
+    return (
+      JSON.stringify(Object.entries(base).sort()) === JSON.stringify(Object.entries(other).sort())
+    );
   }
 
   complete(context: StepContext, answers: StepAnswers[T]): void {
@@ -66,6 +69,10 @@ export abstract class BaseAnswerStepHandler<T extends keyof StepAnswers = keyof 
 
     if (hasChanged) {
       this.updateAnswers(context, answers);
+
+      if (previousAnswers) {
+        this.handleUpdateSideEffects(context, previousAnswers, answers);
+      }
     }
 
     this.next(context);
@@ -78,5 +85,13 @@ export abstract class BaseAnswerStepHandler<T extends keyof StepAnswers = keyof 
     source: "user" | "system" = "user",
   ) {
     context.pocUrbanProject.events.push(AnswerSetEvent.new(stepId, answers, source) as FormEvent);
+  }
+
+  static addAnswerDeletionEvent(
+    context: StepContext,
+    stepId: keyof StepAnswers,
+    source: "user" | "system" = "user",
+  ) {
+    context.pocUrbanProject.events.push(AnswerDeletionEvent.new(stepId, source) as FormEvent);
   }
 }

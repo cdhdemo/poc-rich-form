@@ -4,11 +4,41 @@ import { StepAnswers } from "../../steps.types";
 import { BaseAnswerStepHandler } from "../answerStep.handler";
 import { StepContext } from "../step.handler";
 
+const STEP_ID = "URBAN_PROJECT_BUILDINGS_RESALE_SELECTION" as const;
+
 export class BuildingsResaleSelectionHandler extends BaseAnswerStepHandler {
-  protected override stepId: keyof StepAnswers = "URBAN_PROJECT_BUILDINGS_RESALE_SELECTION";
+  protected override stepId = STEP_ID;
 
-  setDefaultAnswers(): void {}
+  setDefaultAnswers(): void { }
+  
+  handleUpdateSideEffects(
+    context: StepContext,
+    previousAnswers: StepAnswers[typeof STEP_ID],
+    newAnswers: StepAnswers[typeof STEP_ID],
+  ) {
+    if (
+      previousAnswers.buildingsResalePlannedAfterDevelopment !==
+      newAnswers.buildingsResalePlannedAfterDevelopment
+    ) {
+      if (!newAnswers.buildingsResalePlannedAfterDevelopment) {
+        BaseAnswerStepHandler.addAnswerDeletionEvent(
+          context,
+          "URBAN_PROJECT_REVENUE_BUILDINGS_RESALE",
+        );
+      }
 
+      if (newAnswers.buildingsResalePlannedAfterDevelopment) {
+        BaseAnswerStepHandler.addAnswerDeletionEvent(
+          context,
+          "URBAN_PROJECT_EXPENSES_PROJECTED_BUILDINGS_OPERATING_EXPENSES",
+        );
+        BaseAnswerStepHandler.addAnswerDeletionEvent(
+          context,
+          "URBAN_PROJECT_EXPENSES_PROJECTED_BUILDINGS_OPERATING_EXPENSES",
+        );
+      }
+    }
+  }
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_SITE_RESALE_SELECTION");
   }

@@ -4,10 +4,30 @@ import { StepAnswers } from "../../steps.types";
 import { BaseAnswerStepHandler } from "../answerStep.handler";
 import { StepContext } from "../step.handler";
 
-export class SiteResaleSelectionHandler extends BaseAnswerStepHandler {
-  protected override stepId: keyof StepAnswers = "URBAN_PROJECT_SITE_RESALE_SELECTION";
+const STEP_ID = "URBAN_PROJECT_SITE_RESALE_SELECTION" as const;
 
-  setDefaultAnswers(): void {}
+export class SiteResaleSelectionHandler extends BaseAnswerStepHandler {
+  protected override stepId: keyof StepAnswers = STEP_ID;
+
+  setDefaultAnswers(): void { }
+  
+  handleUpdateSideEffects(
+    context: StepContext,
+    previousAnswers: StepAnswers[typeof STEP_ID],
+    newAnswers: StepAnswers[typeof STEP_ID],
+  ) {
+    if (
+      previousAnswers.siteResalePlannedAfterDevelopment !==
+      newAnswers.siteResalePlannedAfterDevelopment
+    ) {
+      if (!newAnswers.siteResalePlannedAfterDevelopment) {
+        BaseAnswerStepHandler.addAnswerDeletionEvent(
+          context,
+          "URBAN_PROJECT_REVENUE_EXPECTED_SITE_RESALE",
+        );
+      }
+    }
+  }
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_SITE_RESALE_INTRODUCTION");
@@ -26,14 +46,14 @@ export class SiteResaleSelectionHandler extends BaseAnswerStepHandler {
 
   override updateAnswers(
     context: StepContext,
-    answers: StepAnswers["URBAN_PROJECT_SITE_RESALE_SELECTION"],
+    answers: StepAnswers[typeof STEP_ID],
     source: "user" | "system" = "user",
   ): void {
     const { siteResalePlannedAfterDevelopment } = answers;
 
-    BaseAnswerStepHandler.addAnswerEvent<"URBAN_PROJECT_SITE_RESALE_SELECTION">(
+    BaseAnswerStepHandler.addAnswerEvent<typeof STEP_ID>(
       context,
-      "URBAN_PROJECT_SITE_RESALE_SELECTION",
+      STEP_ID,
       {
         siteResalePlannedAfterDevelopment,
         futureSiteOwner: siteResalePlannedAfterDevelopment

@@ -8,6 +8,7 @@ export class RevenueBuildingsOperationsYearlyRevenuesHandler extends BaseAnswerS
     "URBAN_PROJECT_REVENUE_BUILDINGS_OPERATIONS_YEARLY_REVENUES";
 
   setDefaultAnswers(): void {}
+  handleUpdateSideEffects(): void { }
 
   previous(context: StepContext): void {
     const siteResalePlannedAfterDevelopment = FormState.getStepAnswers(

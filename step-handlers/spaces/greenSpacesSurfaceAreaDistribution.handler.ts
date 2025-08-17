@@ -1,3 +1,4 @@
+import { FormState } from "../../form-state/formState";
 import { StepAnswers } from "../../steps.types";
 import { BaseAnswerStepHandler } from "../answerStep.handler";
 import { StepContext } from "../step.handler";
@@ -6,7 +7,13 @@ export class GreenSpacesSurfaceAreaDistributionHandler extends BaseAnswerStepHan
   protected override stepId: keyof StepAnswers =
     "URBAN_PROJECT_GREEN_SPACES_SURFACE_AREA_DISTRIBUTION";
 
-  setDefaultAnswers(): void {}
+  setDefaultAnswers(): void { }
+
+  handleUpdateSideEffects(context: StepContext): void {
+    if (FormState.hasLastAnswerFromSystem(context.pocUrbanProject.events, "URBAN_PROJECT_EXPENSES_REINSTATEMENT")) {
+      BaseAnswerStepHandler.addAnswerDeletionEvent(context, "URBAN_PROJECT_EXPENSES_REINSTATEMENT");
+    }
+  }
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_GREEN_SPACES_INTRODUCTION");

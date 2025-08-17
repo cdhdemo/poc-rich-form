@@ -7,6 +7,7 @@ export class StakeholdersReinstatementContractOwnerHandler extends BaseAnswerSte
     "URBAN_PROJECT_STAKEHOLDERS_REINSTATEMENT_CONTRACT_OWNER";
 
   setDefaultAnswers(): void {}
+  handleUpdateSideEffects(): void { }
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_STAKEHOLDERS_PROJECT_DEVELOPER");
