@@ -6,7 +6,7 @@ export class BuildingsUseIntroductionHandler extends BaseStepHandler {
     "URBAN_PROJECT_BUILDINGS_USE_INTRODUCTION";
 
   previous(context: StepContext): void {
-    this.navigateTo(context, "URBAN_PROJECT_BUILDINGS_INTRODUCTION");
+    this.navigateTo(context, "URBAN_PROJECT_BUILDINGS_FLOOR_SURFACE_AREA");
   }
   next(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_BUILDINGS_USE_SURFACE_AREA_DISTRIBUTION");

@@ -21,8 +21,13 @@ export class UrbanProjectSpacesCategoriesSelectionHandler extends BaseAnswerStep
     context: StepContext,
     answers: StepAnswers["URBAN_PROJECT_SPACES_CATEGORIES_SELECTION"],
   ): void {
-    // Enregistrer la réponse
-    this.updateAnswers(context, answers);
+    const previousAnswers = this.getAnswers(context);
+
+    const hasChanged = !previousAnswers || !this.isSameAnswers(previousAnswers, answers);
+
+    if (hasChanged) {
+      this.updateAnswers(context, answers);
+    }
 
     if (answers.spacesCategories?.length === 1 && answers.spacesCategories[0]) {
       this.handleSingleCategoryShortcut(context, answers.spacesCategories[0]);

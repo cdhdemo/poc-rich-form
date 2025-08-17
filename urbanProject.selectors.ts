@@ -35,6 +35,5 @@ export const selectFormAnswers = createSelector([selectEvents], (events) =>
 
 export const selectCurrentStep = createSelector(
   [(state: RootState) => state.projectCreation.pocUrbanProject],
-  (state) =>
-    state.currentStep,
+  (state) => state.currentStep,
 );

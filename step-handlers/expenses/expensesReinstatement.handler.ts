@@ -46,6 +46,6 @@ export class UrbanProjectReinstatementExpensesHandler extends BaseAnswerStepHand
   }
 
   next(context: StepContext): void {
-    this.navigateTo(context, "URBAN_PROJECT_REVENUE_BUILDINGS_OPERATIONS_YEARLY_REVENUES");
+    this.navigateTo(context, "URBAN_PROJECT_EXPENSES_INSTALLATION");
   }
 }

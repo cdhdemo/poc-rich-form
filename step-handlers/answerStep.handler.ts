@@ -55,8 +55,18 @@ export abstract class BaseAnswerStepHandler<T extends keyof StepAnswers = keyof 
     BaseAnswerStepHandler.addAnswerEvent<T>(context, this.stepId, answers, source);
   }
 
+  isSameAnswers(base: StepAnswers[T], other: StepAnswers[T]) {
+    return JSON.stringify(Object.entries(base).sort()) === JSON.stringify(Object.entries(other).sort())
+  }
+
   complete(context: StepContext, answers: StepAnswers[T]): void {
-    this.updateAnswers(context, answers);
+    const previousAnswers = this.getAnswers(context);
+
+    const hasChanged = !previousAnswers || !this.isSameAnswers(previousAnswers, answers);
+
+    if (hasChanged) {
+      this.updateAnswers(context, answers);
+    }
 
     this.next(context);
   }

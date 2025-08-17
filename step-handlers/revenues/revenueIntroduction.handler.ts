@@ -6,7 +6,7 @@ export class RevenueIntroductionHandler extends BaseStepHandler {
   protected override readonly stepId: UrbanProjectCustomCreationStep =
     "URBAN_PROJECT_REVENUE_INTRODUCTION";
 
-  previous(context: StepContext): void {   
+  previous(context: StepContext): void {
     if (
       FormState.hasBuildings(context.pocUrbanProject.events) &&
       !FormState.hasBuildingsResalePlannedAfterDevelopment(context.pocUrbanProject.events)
@@ -28,9 +28,7 @@ export class RevenueIntroductionHandler extends BaseStepHandler {
       return;
     }
 
-    if (
-      FormState.hasBuildings(context.pocUrbanProject.events)
-    ) {
+    if (FormState.hasBuildings(context.pocUrbanProject.events)) {
       if (FormState.hasBuildingsResalePlannedAfterDevelopment(context.pocUrbanProject.events)) {
         this.navigateTo(context, "URBAN_PROJECT_REVENUE_BUILDINGS_RESALE");
         return;
