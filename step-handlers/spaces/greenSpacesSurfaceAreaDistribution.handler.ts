@@ -7,10 +7,15 @@ export class GreenSpacesSurfaceAreaDistributionHandler extends BaseAnswerStepHan
   protected override stepId: keyof StepAnswers =
     "URBAN_PROJECT_GREEN_SPACES_SURFACE_AREA_DISTRIBUTION";
 
-  setDefaultAnswers(): void { }
+  setDefaultAnswers(): void {}
 
   handleUpdateSideEffects(context: StepContext): void {
-    if (FormState.hasLastAnswerFromSystem(context.pocUrbanProject.events, "URBAN_PROJECT_EXPENSES_REINSTATEMENT")) {
+    if (
+      FormState.hasLastAnswerFromSystem(
+        context.pocUrbanProject.events,
+        "URBAN_PROJECT_EXPENSES_REINSTATEMENT",
+      )
+    ) {
       BaseAnswerStepHandler.addAnswerDeletionEvent(context, "URBAN_PROJECT_EXPENSES_REINSTATEMENT");
     }
   }

@@ -15,7 +15,8 @@ export interface AnswerStepHandler<TAnswers> {
 
 export abstract class BaseAnswerStepHandler<T extends keyof StepAnswers = keyof StepAnswers>
   extends BaseStepHandler
-  implements AnswerStepHandler<StepAnswers[T]> {
+  implements AnswerStepHandler<StepAnswers[T]>
+{
   protected abstract override readonly stepId: T;
 
   abstract setDefaultAnswers(context: StepContext): void;

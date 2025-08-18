@@ -7,7 +7,7 @@ export class RevenueFinancialAssistanceHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = "URBAN_PROJECT_REVENUE_FINANCIAL_ASSISTANCE";
 
   setDefaultAnswers(): void {}
-  handleUpdateSideEffects(): void { }
+  handleUpdateSideEffects(): void {}
 
   previous(context: StepContext): void {
     if (FormState.hasBuildings(context.pocUrbanProject.events)) {

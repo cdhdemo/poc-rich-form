@@ -8,8 +8,8 @@ import { StepContext } from "../step.handler";
 
 export class UrbanProjectReinstatementExpensesHandler extends BaseAnswerStepHandler {
   protected readonly stepId: keyof StepAnswers = "URBAN_PROJECT_EXPENSES_REINSTATEMENT";
-  
-  handleUpdateSideEffects(): void { }
+
+  handleUpdateSideEffects(): void {}
 
   setDefaultAnswers(context: StepContext): void {
     const soilsDistribution = FormState.getProjectSoilDistribution(context.pocUrbanProject.events);

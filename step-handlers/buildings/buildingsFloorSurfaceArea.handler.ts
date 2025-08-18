@@ -6,7 +6,7 @@ export class BuildingsFloorSurfaceAreaHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = "URBAN_PROJECT_BUILDINGS_FLOOR_SURFACE_AREA";
 
   setDefaultAnswers(): void {}
-  handleUpdateSideEffects(): void { }
+  handleUpdateSideEffects(): void {}
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_BUILDINGS_INTRODUCTION");

@@ -6,8 +6,8 @@ import { StepContext } from "../step.handler";
 
 export class UrbanProjectInstallationExpensesHandler extends BaseAnswerStepHandler {
   protected readonly stepId = "URBAN_PROJECT_EXPENSES_INSTALLATION";
-  
-  handleUpdateSideEffects(): void { }
+
+  handleUpdateSideEffects(): void {}
 
   setDefaultAnswers(context: StepContext): void {
     if (!context.siteData?.surfaceArea) return;

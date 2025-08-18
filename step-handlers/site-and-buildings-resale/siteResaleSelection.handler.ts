@@ -9,8 +9,8 @@ const STEP_ID = "URBAN_PROJECT_SITE_RESALE_SELECTION" as const;
 export class SiteResaleSelectionHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = STEP_ID;
 
-  setDefaultAnswers(): void { }
-  
+  setDefaultAnswers(): void {}
+
   handleUpdateSideEffects(
     context: StepContext,
     previousAnswers: StepAnswers[typeof STEP_ID],

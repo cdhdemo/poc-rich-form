@@ -6,10 +6,15 @@ import { StepContext } from "../step.handler";
 export class SoilsDecontaminationSelectionHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = "URBAN_PROJECT_SOILS_DECONTAMINATION_SELECTION";
 
-  setDefaultAnswers(): void { }
+  setDefaultAnswers(): void {}
 
   handleUpdateSideEffects(context: StepContext): void {
-    if (FormState.hasLastAnswerFromSystem(context.pocUrbanProject.events, "URBAN_PROJECT_EXPENSES_REINSTATEMENT")) {
+    if (
+      FormState.hasLastAnswerFromSystem(
+        context.pocUrbanProject.events,
+        "URBAN_PROJECT_EXPENSES_REINSTATEMENT",
+      )
+    ) {
       BaseAnswerStepHandler.addAnswerDeletionEvent(context, "URBAN_PROJECT_EXPENSES_REINSTATEMENT");
     }
   }
@@ -33,7 +38,6 @@ export class SoilsDecontaminationSelectionHandler extends BaseAnswerStepHandler 
     if (hasChanged) {
       this.updateAnswers(context, answers);
     }
-
 
     if (answers.decontaminationPlan === "partial") {
       this.next(context);

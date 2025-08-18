@@ -13,7 +13,7 @@ export class UrbanProjectSpacesCategoriesSelectionHandler extends BaseAnswerStep
 > {
   protected override stepId = STEP_ID;
 
-  setDefaultAnswers(): void { }
+  setDefaultAnswers(): void {}
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_SPACES_CATEGORIES_INTRODUCTION");
@@ -28,6 +28,11 @@ export class UrbanProjectSpacesCategoriesSelectionHandler extends BaseAnswerStep
     previousAnswers: StepAnswers[typeof STEP_ID],
     newAnswers: StepAnswers[typeof STEP_ID],
   ) {
+    BaseAnswerStepHandler.addAnswerDeletionEvent(
+      context,
+      "URBAN_PROJECT_SPACES_CATEGORIES_SURFACE_AREA",
+    );
+
     if (
       previousAnswers.spacesCategories?.includes("GREEN_SPACES") &&
       !newAnswers.spacesCategories?.includes("GREEN_SPACES")
@@ -65,7 +70,12 @@ export class UrbanProjectSpacesCategoriesSelectionHandler extends BaseAnswerStep
       }
     }
 
-    if (FormState.hasLastAnswerFromSystem(context.pocUrbanProject.events, "URBAN_PROJECT_EXPENSES_REINSTATEMENT")) {
+    if (
+      FormState.hasLastAnswerFromSystem(
+        context.pocUrbanProject.events,
+        "URBAN_PROJECT_EXPENSES_REINSTATEMENT",
+      )
+    ) {
       BaseAnswerStepHandler.addAnswerDeletionEvent(context, "URBAN_PROJECT_EXPENSES_REINSTATEMENT");
     }
   }

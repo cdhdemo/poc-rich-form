@@ -6,10 +6,15 @@ import { StepContext } from "../step.handler";
 export class PublicSpacesDistributionHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = "URBAN_PROJECT_PUBLIC_SPACES_DISTRIBUTION";
 
-  setDefaultAnswers(): void { }
+  setDefaultAnswers(): void {}
 
   handleUpdateSideEffects(context: StepContext): void {
-    if (FormState.hasLastAnswerFromSystem(context.pocUrbanProject.events, "URBAN_PROJECT_EXPENSES_REINSTATEMENT")) {
+    if (
+      FormState.hasLastAnswerFromSystem(
+        context.pocUrbanProject.events,
+        "URBAN_PROJECT_EXPENSES_REINSTATEMENT",
+      )
+    ) {
       BaseAnswerStepHandler.addAnswerDeletionEvent(context, "URBAN_PROJECT_EXPENSES_REINSTATEMENT");
     }
   }

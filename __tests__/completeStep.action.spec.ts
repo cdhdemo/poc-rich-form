@@ -5,10 +5,10 @@ import { getTestAppDependencies } from "@/test/testAppDependencies";
 
 import { getInitialState, ProjectCreationState } from "../../createProject.reducer";
 import { initialState as urbanProjectInitialState } from "../../urban-project/urbanProject.reducer";
+import { SerializedAnswerSetEvent } from "../form-events/events.type";
 import { completeStep, navigateToNext } from "../urbanProject.actions";
 import { initialState as pocInitialState } from "../urbanProject.reducer";
 import { mockSiteData } from "./_siteData.mock";
-import { SerializedAnswerSetEvent } from "../form-events/events.type";
 
 // Helper pour créer un état initial de test
 const createInitialTestState = (): ProjectCreationState => ({
@@ -603,7 +603,11 @@ describe("urbanProject.reducer", () => {
 
       // Vérification qu'un événement de surface décontaminée = 0 a été créé automatiquement
       const decontaminationSurfaceEvent = currentState.pocUrbanProject.events.find(
-        (event): event is SerializedAnswerSetEvent<"URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA"> => event.stepId === "URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA" && event.type === "ANSWER_SET",
+        (
+          event,
+        ): event is SerializedAnswerSetEvent<"URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA"> =>
+          event.stepId === "URBAN_PROJECT_SOILS_DECONTAMINATION_SURFACE_AREA" &&
+          event.type === "ANSWER_SET",
       );
       expect(decontaminationSurfaceEvent).toBeDefined();
       expect(decontaminationSurfaceEvent?.payload.decontaminatedSurfaceArea).toBe(0);

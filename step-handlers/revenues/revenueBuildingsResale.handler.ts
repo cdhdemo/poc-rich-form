@@ -7,7 +7,7 @@ export class RevenueBuildingsResaleHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = "URBAN_PROJECT_REVENUE_BUILDINGS_RESALE";
 
   setDefaultAnswers(): void {}
-  handleUpdateSideEffects(): void { }
+  handleUpdateSideEffects(): void {}
 
   previous(context: StepContext): void {
     const siteResalePlannedAfterDevelopment = FormState.getStepAnswers(

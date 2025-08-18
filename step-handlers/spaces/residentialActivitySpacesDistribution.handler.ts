@@ -9,7 +9,7 @@ const STEP_ID = "URBAN_PROJECT_RESIDENTIAL_AND_ACTIVITY_SPACES_DISTRIBUTION" as 
 export class ResidentialAndActivitySpacesDistributionHandler extends BaseAnswerStepHandler {
   protected override stepId = STEP_ID;
 
-  setDefaultAnswers(): void { }
+  setDefaultAnswers(): void {}
 
   handleUpdateSideEffects(
     context: StepContext,
@@ -27,7 +27,12 @@ export class ResidentialAndActivitySpacesDistributionHandler extends BaseAnswerS
       }
     }
 
-    if (FormState.hasLastAnswerFromSystem(context.pocUrbanProject.events, "URBAN_PROJECT_EXPENSES_REINSTATEMENT")) {
+    if (
+      FormState.hasLastAnswerFromSystem(
+        context.pocUrbanProject.events,
+        "URBAN_PROJECT_EXPENSES_REINSTATEMENT",
+      )
+    ) {
       BaseAnswerStepHandler.addAnswerDeletionEvent(context, "URBAN_PROJECT_EXPENSES_REINSTATEMENT");
     }
   }

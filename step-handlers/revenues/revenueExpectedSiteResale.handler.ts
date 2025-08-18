@@ -7,7 +7,7 @@ export class RevenueExpectedSiteResaleHandler extends BaseAnswerStepHandler {
   protected override stepId: keyof StepAnswers = "URBAN_PROJECT_REVENUE_EXPECTED_SITE_RESALE";
 
   setDefaultAnswers(): void {}
-  handleUpdateSideEffects(): void { }
+  handleUpdateSideEffects(): void {}
 
   previous(context: StepContext): void {
     this.navigateTo(context, "URBAN_PROJECT_REVENUE_INTRODUCTION");

@@ -11,7 +11,7 @@ export class UrbanProjectSpacesCategoriesSurfaceAreaHandler extends BaseAnswerSt
 > {
   protected override stepId = STEP_ID;
 
-  setDefaultAnswers(): void { }
+  setDefaultAnswers(): void {}
 
   handleUpdateSideEffects(
     context: StepContext,
@@ -60,7 +60,12 @@ export class UrbanProjectSpacesCategoriesSurfaceAreaHandler extends BaseAnswerSt
       }
     }
 
-    if (FormState.hasLastAnswerFromSystem(context.pocUrbanProject.events, "URBAN_PROJECT_EXPENSES_REINSTATEMENT")) {
+    if (
+      FormState.hasLastAnswerFromSystem(
+        context.pocUrbanProject.events,
+        "URBAN_PROJECT_EXPENSES_REINSTATEMENT",
+      )
+    ) {
       BaseAnswerStepHandler.addAnswerDeletionEvent(context, "URBAN_PROJECT_EXPENSES_REINSTATEMENT");
     }
   }
